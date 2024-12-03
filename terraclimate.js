@@ -2,6 +2,11 @@ var countries = ee.FeatureCollection("FAO/GAUL/2015/level0");
 var filter = ['Switzerland']
 var filtered_country = countries.filter(ee.Filter.inList('ADM0_NAME', filter));
 
+// Ajouter un tampon autour de la Suisse (par exemple, 5km)
+var buffered_country = filtered_country.map(function(feature) {
+  return feature.buffer(5000); // buffer en mètres (ici 5km)
+});
+
 var dataset = ee.ImageCollection("IDAHO_EPSCOR/TERRACLIMATE");
 
 // change variable name and text in select for a different parameter
